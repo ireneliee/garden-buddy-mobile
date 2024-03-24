@@ -1,7 +1,5 @@
-import { Header } from '@rneui/themed';
-import LinearGradient from 'react-native-linear-gradient';
+
 import { View, Text, Image, StyleSheet } from 'react-native';
-import { SpeedDial } from '@rneui/themed';
 
 const MainHeader = () => {
   
