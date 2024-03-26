@@ -17,7 +17,8 @@ const MainHeader = () => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
-    marginBottom: 10
+    marginBottom: 10,
+    alignItems: 'center'
   },
 });
 

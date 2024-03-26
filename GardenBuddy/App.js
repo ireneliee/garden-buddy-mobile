@@ -10,6 +10,7 @@ import Profile from './pages/Profile';
 
 export default function App() {
 
+
   const [selectedSection, setSelectedSection] = useState('Plants');
 
   const renderSection = () => {
@@ -41,8 +42,6 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
+    backgroundColor: '#fff'
   },
 });
