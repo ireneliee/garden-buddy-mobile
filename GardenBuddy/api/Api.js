@@ -7,6 +7,16 @@ export const UserApi = {
   getStaffListByRole() {
     return axiosFetch.get(`${REST_ENDPOINT}/users/getAllUsers`);
   },
+  userLogin(username, password) {
+    return axiosFetch.post(
+      `${REST_ENDPOINT}/users/userLogin?username=${username}&password=${password}`
+    );
+  },
+  createUser(username, password, firstname, lastname) {
+    return axiosFetch.post(
+      `${REST_ENDPOINT}/users/createUser?username=${username}&password=${password}&firstname=${firstname}&lastname=${lastname}`
+    );
+  }
 };
 
 export const GardenApi = {
@@ -29,3 +39,5 @@ export const DataApi = {
     return axiosFetch.get(`${REST_ENDPOINT}/users/getAllUsers`);
   },
 };
+
+
