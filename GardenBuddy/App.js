@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import MainHeader from "./components/MainHeader";
 import MenuBar from "./components/MenuBar";
 import PlantGallery from "./pages/PlantGallery";
@@ -49,7 +49,11 @@ export default function App() {
         return <PlantGallery></PlantGallery>;
       case "Shop":
         return (
-          <Shop addToCart={addToCart} removeFromCart={removeFromCart}></Shop>
+          <Shop
+            addToCart={addToCart}
+            removeFromCart={removeFromCart}
+            cart={cart}
+          ></Shop>
         );
       case "Profile":
         return <Profile></Profile>;
@@ -60,11 +64,11 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <MainHeader></MainHeader>
         <MenuBar onSelect={(item) => setSelectedSection(item)} />
         <View>{renderSection()}</View>
-      </View>
+      </ScrollView>
       <Toast />
     </SafeAreaProvider>
   );

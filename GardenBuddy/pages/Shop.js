@@ -1,18 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { ShopApi } from "../api/Api";
-import { ButtonGroup, Icon } from "react-native-elements";
+import { ButtonGroup, Icon, Image } from "react-native-elements";
 import ShopListing from "../components/ShopListing";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
 import QuantitySelector from "../components/QuantitySelector";
 import Toast from "react-native-toast-message";
+import ViewCart from "../components/ViewCart";
 
-const Shop = ({ addToCart, removeFromCart }) => {
+const Shop = ({ addToCart, removeFromCart, cart }) => {
   const [accessories, setAccessories] = useState([]);
   const [gardenBuddyPacks, setGardenBuddyPacks] = useState([]);
   const [selectedTab, setSelectedTab] = useState(0);
   const [selectedListing, setSelectedListing] = useState(-1);
+  const [displayCart, setDisplayCart] = useState(false);
   const [quantity, setQuantity] = useState(1);
-
+  const windowWidth = Dimensions.get("window").width;
+  const windowHeight = Dimensions.get("window").height;
+  const imageWidth = windowWidth * 0.9;
+  const imageHeight = windowHeight * 0.4;
+  const placeHolderLink = require("../assets/plantPlaceholder.jpg");
   useEffect(() => {
     getData();
   }, []);
@@ -41,88 +53,117 @@ const Shop = ({ addToCart, removeFromCart }) => {
     }
   };
 
+  const handleDisplayCart = () => {
+    setDisplayCart(!displayCart);
+  };
+
   return (
     <>
-      {selectedListing === -1 && (
-        <View style={[styles.header, { justifyContent: "flex-end" }]}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => console.log("Navigate to Cart")}
-          >
-            <Icon name="shopping-cart" size={24} color="#2ECC71" />
-          </TouchableOpacity>
-        </View>
-      )}
-
-      {selectedListing !== -1 && (
-        <View style={styles.header}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => selectListingToView(-1)}
-          >
-            <Text style={styles.buttonText}>Back</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => console.log("Navigate to Cart")}
-          >
-            <Icon name="shopping-cart" size={24} color="#2ECC71" />
-          </TouchableOpacity>
-        </View>
-      )}
-      {selectedListing === -1 && (
+      {!displayCart && (
         <>
-          <ButtonGroup
-            buttons={["View Packs", "View Accessories"]}
-            selectedIndex={selectedTab}
-            onPress={(value) => {
-              setSelectedTab(value);
-            }}
-            containerStyle={{ marginBottom: 20, height: 50 }}
-          />
-
-          {selectedTab === 0 && (
-            <ShopListing
-              shopItemList={gardenBuddyPacks}
-              onSelectListing={selectListingToView}
-            />
+          {selectedListing === -1 && (
+            <View style={[styles.header, { justifyContent: "flex-end" }]}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={handleDisplayCart}
+              >
+                <Icon name="shopping-cart" size={24} color="#2ECC71" />
+              </TouchableOpacity>
+            </View>
           )}
-          {selectedTab === 1 && (
-            <ShopListing
-              shopItemList={accessories}
-              onSelectListing={selectListingToView}
-            />
+
+          {selectedListing !== -1 && (
+            <View style={styles.header}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => selectListingToView(-1)}
+              >
+                <Text style={styles.buttonText}>Back</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.button}
+                onPress={handleDisplayCart}
+              >
+                <Icon name="shopping-cart" size={24} color="#2ECC71" />
+              </TouchableOpacity>
+            </View>
+          )}
+          {selectedListing === -1 && (
+            <>
+              <ButtonGroup
+                buttons={["View Packs", "View Accessories"]}
+                selectedIndex={selectedTab}
+                onPress={(value) => {
+                  setSelectedTab(value);
+                }}
+                containerStyle={{ marginBottom: 20, height: 50 }}
+              />
+
+              {selectedTab === 0 && (
+                <ShopListing
+                  shopItemList={gardenBuddyPacks}
+                  onSelectListing={selectListingToView}
+                />
+              )}
+              {selectedTab === 1 && (
+                <ShopListing
+                  shopItemList={accessories}
+                  onSelectListing={selectListingToView}
+                />
+              )}
+            </>
+          )}
+          {selectedListing !== -1 && (
+            <>
+              <View style={styles.container}>
+                <Text style={styles.name}>{selectedListing.name}</Text>
+                <Image
+                  source={placeHolderLink}
+                  style={[
+                    { width: imageWidth, height: imageHeight, margin: "auto" },
+                  ]}
+                  resizeMode="contain"
+                />
+                <Text style={styles.description}>
+                  {selectedListing.description}
+                </Text>
+                <Text style={styles.price}>
+                  Price: ${selectedListing.price}
+                </Text>
+
+                <View style={styles.quantityContainer}>
+                  <Text style={styles.quantityLabel}>Quantity:</Text>
+                  <QuantitySelector
+                    initialValue={1}
+                    maxQuantity={selectedListing.quantity}
+                    onChange={setQuantity}
+                  />
+                </View>
+
+                <TouchableOpacity
+                  style={[styles.button, { backgroundColor: "#007bff" }]}
+                  onPress={handleAddToCart}
+                >
+                  <Text style={[styles.buttonText, { color: "#fff" }]}>
+                    Add to Cart
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </>
           )}
         </>
       )}
-      {selectedListing !== -1 && (
+      {displayCart && (
         <>
-          <View style={styles.container}>
-            <Text style={styles.name}>{selectedListing.name}</Text>
-            <Text style={styles.description}>
-              {selectedListing.description}
-            </Text>
-            <Text style={styles.price}>Price: ${selectedListing.price}</Text>
-
-            <View style={styles.quantityContainer}>
-              <Text style={styles.quantityLabel}>Quantity:</Text>
-              <QuantitySelector
-                initialValue={1}
-                maxQuantity={selectedListing.quantity}
-                onChange={setQuantity}
-              />
-            </View>
-
-            <TouchableOpacity
-              style={[styles.button, { backgroundColor: "#007bff" }]}
-              onPress={handleAddToCart}
-            >
-              <Text style={[styles.buttonText, { color: "#fff" }]}>
-                Add to Cart
-              </Text>
-            </TouchableOpacity>
-          </View>
+          <ViewCart
+            addToCart={addToCart}
+            removeFromCart={removeFromCart}
+            cart={cart}
+            accessories={accessories}
+            gardenBuddyPacks={gardenBuddyPacks}
+            handleDisplayCart={handleDisplayCart}
+          />
         </>
       )}
     </>
