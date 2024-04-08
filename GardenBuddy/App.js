@@ -28,7 +28,7 @@ export default function App() {
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState("");
+  const [userId, setUserId] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
 
   const onPressLogin = () => {
@@ -38,7 +38,7 @@ export default function App() {
       });
       setIsLoggedIn(true);
       console.log(response.data.user_id);
-      setUser(response.data.user_id);
+      setUserId(response.data.user_id);
     });
   };
   const onPressForgotPassword = () => {
@@ -80,20 +80,26 @@ export default function App() {
     console.log(cart);
   };
 
+  const resetCart = () => {
+    setCart({});
+  };
+
   const renderSection = () => {
     switch (selectedSection) {
       case "Plants":
-        return <PlantGallery></PlantGallery>;
+        return <PlantGallery userId={userId}></PlantGallery>;
       case "Shop":
         return (
           <Shop
             addToCart={addToCart}
             removeFromCart={removeFromCart}
             cart={cart}
+            userId={userId}
+            resetCart={resetCart}
           ></Shop>
         );
       case "Profile":
-        return <Profile></Profile>;
+        return <Profile userId={userId}></Profile>;
       default:
         return null;
     }

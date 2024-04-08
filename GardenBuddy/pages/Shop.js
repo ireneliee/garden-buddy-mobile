@@ -13,7 +13,7 @@ import QuantitySelector from "../components/QuantitySelector";
 import Toast from "react-native-toast-message";
 import ViewCart from "../components/ViewCart";
 
-const Shop = ({ addToCart, removeFromCart, cart }) => {
+const Shop = ({ addToCart, removeFromCart, cart, userId, resetCart }) => {
   const [accessories, setAccessories] = useState([]);
   const [gardenBuddyPacks, setGardenBuddyPacks] = useState([]);
   const [selectedTab, setSelectedTab] = useState(0);
@@ -25,6 +25,7 @@ const Shop = ({ addToCart, removeFromCart, cart }) => {
   const imageWidth = windowWidth * 0.9;
   const imageHeight = windowHeight * 0.4;
   const placeHolderLink = require("../assets/plantPlaceholder.jpg");
+
   useEffect(() => {
     getData();
   }, []);
@@ -163,6 +164,8 @@ const Shop = ({ addToCart, removeFromCart, cart }) => {
             accessories={accessories}
             gardenBuddyPacks={gardenBuddyPacks}
             handleDisplayCart={handleDisplayCart}
+            userId={userId}
+            resetCart={resetCart}
           />
         </>
       )}

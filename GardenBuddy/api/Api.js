@@ -16,7 +16,7 @@ export const UserApi = {
     return axiosFetch.post(
       `${REST_ENDPOINT}/users/createUser?username=${username}&password=${password}&firstname=${firstname}&lastname=${lastname}`
     );
-  }
+  },
 };
 
 export const GardenApi = {
@@ -32,7 +32,7 @@ export const ShopApi = {
     return axiosFetch.get(`${REST_ENDPOINT}/shop/getAllAccessories`);
   },
   createOrder(requestBody) {
-    return axiosFetch.get(`${REST_ENDPOINT}/shop/createOrder`, requestBody);
+    return axiosFetch.post(`${REST_ENDPOINT}/shop/createOrder`, requestBody);
   },
 };
 
@@ -41,5 +41,3 @@ export const DataApi = {
     return axiosFetch.get(`${REST_ENDPOINT}/users/getAllUsers`);
   },
 };
-
-

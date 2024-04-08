@@ -19,6 +19,8 @@ const ViewCart = ({
   accessories,
   gardenBuddyPacks,
   handleDisplayCart,
+  userId,
+  resetCart,
 }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [creditCard, setCreditCard] = useState("");
@@ -63,7 +65,7 @@ const ViewCart = ({
     const expirationRegex = /^[0-9]{4}$/;
     if (!creditCardRegex.test(creditCard)) {
       Toast.show({
-        type: "fail",
+        type: "error",
         text1: "Error",
         text2:
           "Invalid credit card number. Please enter a valid 16-digit number.",
@@ -72,7 +74,7 @@ const ViewCart = ({
     }
     if (!cvvRegex.test(cvv)) {
       Toast.show({
-        type: "fail",
+        type: "error",
         text1: "Error",
         text2: "Invalid CVV. Please enter a valid 3-digit number.",
       });
@@ -80,7 +82,7 @@ const ViewCart = ({
     }
     if (!expirationRegex.test(expirationMonth + expirationYear)) {
       Toast.show({
-        type: "fail",
+        type: "error",
         text1: "Error",
         text2: "Invalid expiration date. Please enter a valid 4-digit number.",
       });
@@ -89,20 +91,44 @@ const ViewCart = ({
     return true;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (handleValidation()) {
-      const lineItems = convertCartToLineItems(cart);
-      ShopApi.createOrder(lineItems, 1); //TO CHANGE USER ID WHEN WE PASS DOWN AFTER LOGIN IS PUSHED
+      // const lineItems = convertCartToLineItems(cart);
+      // ShopApi.createOrder(lineItems, userId);
+      if (cart.length === 0) {
+        Toast.show({
+          type: "info",
+          text1: "Info",
+          text2: "Your cart is empty!",
+        });
+        return;
+      }
+
+      try {
+        const lineItems = [];
+        for (const itemId in cart) {
+          if (cart.hasOwnProperty(itemId)) {
+            lineItems.push([itemId, cart[itemId]]);
+          }
+        }
+        const requestBody = {
+          list_of_line_items: lineItems,
+          user_id: userId,
+        };
+
+        const response = await ShopApi.createOrder(requestBody);
+        console.log("Order created:", response.data);
+        Toast.show({
+          type: "success",
+          text1: "Success",
+          text2: "Order is successfully created!",
+        });
+        resetCart();
+      } catch (error) {
+        console.error("Error creating order:", error);
+      }
       handleCloseModal();
     }
-  };
-
-  const convertCartToLineItems = (cart) => {
-    const lineItems = [];
-    Object.keys(cart).forEach((id) => {
-      lineItems.push([parseInt(id), cart[id]]);
-    });
-    return lineItems;
   };
 
   return (
