@@ -41,13 +41,12 @@ export default function App() {
       setUserId(response.data.user_id);
     });
   };
-  const onPressForgotPassword = () => {
-    // Do something about forgot password operation
-  };
+
   const onPressSignUp = () => {
     // Do something about signup operation
     setModalVisible(true);
   };
+
 
   const addToCart = (productId, quantity) => {
     if (cart[productId]) {

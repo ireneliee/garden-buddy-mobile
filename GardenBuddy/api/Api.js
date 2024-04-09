@@ -17,6 +17,11 @@ export const UserApi = {
       `${REST_ENDPOINT}/users/createUser?username=${username}&password=${password}&firstname=${firstname}&lastname=${lastname}`
     );
   },
+  getUserById(userId) {
+    return axiosFetch.get(
+      `${REST_ENDPOINT}/users/getUserById?userId=${userId}`
+    );
+  },
 };
 
 export const GardenApi = {
@@ -34,6 +39,11 @@ export const ShopApi = {
   createOrder(requestBody) {
     return axiosFetch.post(`${REST_ENDPOINT}/shop/createOrder`, requestBody);
   },
+  getInventoryItem(item_id) {
+    return axiosFetch.get(
+      `${REST_ENDPOINT}/shop/getInventoryItem?item_id=${item_id}`
+    );
+  },
 };
 
 export const DataApi = {
@@ -41,3 +51,16 @@ export const DataApi = {
     return axiosFetch.get(`${REST_ENDPOINT}/users/getAllUsers`);
   },
 };
+
+export const OrderApi = {
+  getOrdersByUserId(userId) {
+    return axiosFetch.get(
+    `${REST_ENDPOINT}/users/getOrdersByUserId?userId=${userId}`
+    );
+  },
+  getOrdersByOrderId(orderId) {
+    return axiosFetch.get(
+    `${REST_ENDPOINT}/users/getOrdersByOrderId?orderId=${orderId}`
+    );
+  },
+}
