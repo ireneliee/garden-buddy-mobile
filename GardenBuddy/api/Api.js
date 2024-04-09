@@ -25,10 +25,31 @@ export const UserApi = {
 };
 
 export const GardenApi = {
-  getStaffListByRole() {
-    return axiosFetch.get(`${REST_ENDPOINT}/users/getAllUsers`);
+  getGardenBuddiesByUserId(userId) {
+    return axiosFetch.get(
+      `${REST_ENDPOINT}/garden/getGardenBuddiesByUserId?userId=${userId}`
+    );
+  },
+  getGardenByGardenBuddyId(gardenBuddyId) {
+    return axiosFetch.get(
+      `${REST_ENDPOINT}/garden/getGardenByGardenBuddyId?gardenBuddyId=${gardenBuddyId}`
+    );
+  },
+  registerGardenBuddy(userId, serialId) {
+    return axiosFetch.post(
+      `${REST_ENDPOINT}/garden/createGardenBuddy?userId=${userId}&serialId=${serialId}`
+    );
+  },
+  getAllGardenTypes() {
+    return axiosFetch.get(`${REST_ENDPOINT}/garden/getAllGardenTypes`);
+  },
+  createGarden(gardenBuddyId, gardenTypeId) {
+    return axiosFetch.post(
+      `${REST_ENDPOINT}/garden/createGarden?gardenBuddyId=${gardenBuddyId}&gardenTypeId=${gardenTypeId}`
+    );
   },
 };
+
 export const ShopApi = {
   getAllGardenBuddyPacks() {
     return axiosFetch.get(`${REST_ENDPOINT}/shop/getAllGardenBuddyPacks`);
