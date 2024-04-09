@@ -93,8 +93,6 @@ const ViewCart = ({
 
   const handleSubmit = async () => {
     if (handleValidation()) {
-      // const lineItems = convertCartToLineItems(cart);
-      // ShopApi.createOrder(lineItems, userId);
       if (cart.length === 0) {
         Toast.show({
           type: "info",

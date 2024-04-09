@@ -1864,6 +1864,11 @@
     "prompts" "^2.4.2"
     "semver" "^7.5.2"
 
+"@react-native-picker/picker@^2.7.2":
+  "integrity" "sha512-a+UiyCu0XtXJK+VGIFggwA02PU3dgnvUPxlk2u99ZphTFp80Va8WH1OM9g2gyUXTVg9a5iybpDBa2+7fDfIMXA=="
+  "resolved" "https://registry.npmjs.org/@react-native-picker/picker/-/picker-2.7.2.tgz"
+  "version" "2.7.2"
+
 "@react-native/assets-registry@~0.73.1", "@react-native/assets-registry@0.73.1":
   "integrity" "sha512-2FgAbU7uKM5SbbW9QptPPZx8N9Ke2L7bsHb+EhAanZjFZunA9PaYtyjUQ1s7HD+zDVqOQIvjkpXSv7Kejd2tqg=="
   "resolved" "https://registry.npmjs.org/@react-native/assets-registry/-/assets-registry-0.73.1.tgz"

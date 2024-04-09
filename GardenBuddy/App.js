@@ -19,9 +19,10 @@ import Profile from "./pages/Profile";
 import Toast from "react-native-toast-message";
 import { UserApi } from "./api/Api";
 import FlashMessage, { showMessage } from "react-native-flash-message";
+import Buddy from "./pages/Buddy";
 
 export default function App() {
-  const [selectedSection, setSelectedSection] = useState("Plants");
+  const [selectedSection, setSelectedSection] = useState("GardenBuddy");
   const [cart, setCart] = useState({});
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -37,7 +38,6 @@ export default function App() {
         message: "Hello flashbars!",
       });
       setIsLoggedIn(true);
-      console.log(response.data.user_id);
       setUserId(response.data.user_id);
     });
   };
@@ -86,8 +86,10 @@ export default function App() {
 
   const renderSection = () => {
     switch (selectedSection) {
-      case "Plants":
-        return <PlantGallery userId={userId}></PlantGallery>;
+      // case "Plants":
+      //   return <PlantGallery userId={userId}></PlantGallery>;
+      case "GardenBuddy":
+        return <Buddy userId={userId}></Buddy>;
       case "Shop":
         return (
           <Shop
