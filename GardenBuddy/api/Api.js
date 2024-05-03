@@ -71,17 +71,23 @@ export const DataApi = {
   getStaffListByRole() {
     return axiosFetch.get(`${REST_ENDPOINT}/users/getAllUsers`);
   },
+
+  getUserGardenData(gardenId) {
+    return axiosFetch.get(
+      `${REST_ENDPOINT}/data/getUserGardenData?garden_id=${gardenId}`
+    );
+  },
 };
 
 export const OrderApi = {
   getOrdersByUserId(userId) {
     return axiosFetch.get(
-    `${REST_ENDPOINT}/users/getOrdersByUserId?userId=${userId}`
+      `${REST_ENDPOINT}/users/getOrdersByUserId?userId=${userId}`
     );
   },
   getOrdersByOrderId(orderId) {
     return axiosFetch.get(
-    `${REST_ENDPOINT}/users/getOrdersByOrderId?orderId=${orderId}`
+      `${REST_ENDPOINT}/users/getOrdersByOrderId?orderId=${orderId}`
     );
   },
-}
+};
