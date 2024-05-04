@@ -25,6 +25,7 @@ const Shop = ({ addToCart, removeFromCart, cart, userId, resetCart }) => {
   const imageWidth = windowWidth * 0.9;
   const imageHeight = windowHeight * 0.4;
   const placeHolderLink = require("../assets/plantPlaceholder.jpg");
+  const fertiliserLink = require("../assets/fertiliser.jpg")
 
   useEffect(() => {
     getData();
@@ -119,13 +120,21 @@ const Shop = ({ addToCart, removeFromCart, cart, userId, resetCart }) => {
             <>
               <View style={styles.container}>
                 <Text style={styles.name}>{selectedListing.name}</Text>
+                {selectedListing.name.includes('Fertiliser') ? 
+                <Image
+                  source={fertiliserLink}
+                  style={[
+                    { width: imageWidth, height: imageHeight, margin: "auto" },
+                  ]}
+                  resizeMode="contain"
+                /> : 
                 <Image
                   source={placeHolderLink}
                   style={[
                     { width: imageWidth, height: imageHeight, margin: "auto" },
                   ]}
                   resizeMode="contain"
-                />
+                />}
                 <Text style={styles.description}>
                   {selectedListing.description}
                 </Text>

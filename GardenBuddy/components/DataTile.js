@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-const Tile = ({ name, currentValue, currentUnit, idealValue, idealUnit }) => {
+const Tile = ({ name, currentValue, currentUnit, idealValue, idealUnit, onAlert }) => {
   const tileStyle =
     currentValue > idealValue ? styles.redTile : styles.greenTile;
+
+    useEffect(() => {
+      if (currentValue !== idealValue) {
+        onAlert && onAlert();
+      }
+    }, [currentValue, idealValue, onAlert]);
 
   return (
     <View style={[styles.tile, tileStyle]}>

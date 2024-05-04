@@ -77,6 +77,11 @@ export const DataApi = {
       `${REST_ENDPOINT}/data/getUserGardenData?garden_id=${gardenId}`
     );
   },
+  getPhByGardenId(gardenId) {
+    return axiosFetch.get(
+      `${REST_ENDPOINT}/data/getPhByGardenId?garden_id=${gardenId}`
+    );
+  }
 };
 
 export const OrderApi = {

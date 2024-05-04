@@ -17,6 +17,8 @@ const ShopListing = ({ shopItemList, onSelectListing }) => {
   const imageWidth = cardWidth * 0.9;
   const imageHeight = cardHeight * 0.9;
   const placeHolderLink = require("../assets/plantPlaceholder.jpg");
+  const fertiliserLink = require("../assets/fertiliser.jpg");
+
   const styles = StyleSheet.create({
     container: {
       paddingHorizontal: 10,
@@ -66,14 +68,21 @@ const ShopListing = ({ shopItemList, onSelectListing }) => {
   const renderItem = ({ item }) => (
     <TouchableOpacity onPress={() => handleSelect(item)}>
       <Card containerStyle={styles.itemContainer}>
-        <Image
-          source={placeHolderLink}
-          style={[
-            styles.itemImage,
-            { width: imageWidth, height: imageHeight, margin: "auto" },
-          ]}
-          resizeMode="contain"
-        />
+      {item.name.includes('Fertiliser') ? 
+      <Image
+        source={fertiliserLink}
+        style={[
+          { width: imageWidth, height: imageHeight, margin: "auto" },
+        ]}
+        resizeMode="contain"
+      /> : 
+      <Image
+        source={placeHolderLink}
+        style={[
+          { width: imageWidth, height: imageHeight, margin: "auto" },
+        ]}
+        resizeMode="contain"
+      />}
         <View style={styles.itemDetails}>
           <Text style={styles.itemName}>{item.name}</Text>
           <Text style={styles.itemPrice}>Price: ${item.price}</Text>

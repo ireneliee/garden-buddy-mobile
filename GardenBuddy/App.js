@@ -88,7 +88,15 @@ export default function App() {
       // case "Plants":
       //   return <PlantGallery userId={userId}></PlantGallery>;
       case "GardenBuddy":
-        return <Buddy userId={userId}></Buddy>;
+        return (
+        <Buddy 
+          addToCart={addToCart}
+          removeFromCart={removeFromCart}
+          cart={cart}
+          userId={userId}
+          resetCart={resetCart}
+        ></Buddy>
+        );
       case "Shop":
         return (
           <Shop

@@ -6,7 +6,7 @@ import Toast from "react-native-toast-message";
 import { Picker } from "@react-native-picker/picker";
 import Garden from "../components/Garden";
 
-const Buddy = ({ userId }) => {
+const Buddy = ({ addToCart, removeFromCart, cart, userId, resetCart }) => {
   const [gardenBuddies, setGardenBuddies] = useState([]);
   const [gardens, setGardens] = useState([]);
   const [gardenTypes, setGardenTypes] = useState([]);
@@ -234,6 +234,9 @@ const Buddy = ({ userId }) => {
             gardenBuddy={selectedGardenBuddyToView}
             userId={userId}
             handleCloseViewGardenBuddy={handleCloseViewGardenBuddy}
+            addToCart={addToCart}
+            removeFromCart={removeFromCart}
+            cart={cart}
           />
         </>
       )}
