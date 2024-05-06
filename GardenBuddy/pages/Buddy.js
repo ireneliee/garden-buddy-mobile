@@ -97,10 +97,11 @@ const Buddy = ({ addToCart, removeFromCart, cart, userId, resetCart }) => {
 
     try {
       const response = await GardenApi.createGarden(
+        
         gardenBuddies[selectedBuddy].id,
         selectedOption
       );
-
+      console.log(response);
       setSelectedBuddy(-1);
       setSelectedOption("");
       setAddGardenModalVisible(false);

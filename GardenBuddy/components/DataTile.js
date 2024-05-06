@@ -11,10 +11,10 @@ const Tile = ({
   threshold,
   haveIdeal,
 }) => {
-  let tileStyle = None;
-  if (haveIdeal) {
+  let tileStyle = null;
+  if (haveIdeal && currentValue != null) {
     tileStyle =
-      currentValue > idealValue - threshold ? styles.redTile : styles.greenTile;
+      currentValue < idealValue - threshold ? styles.redTile : styles.greenTile;
   } else {
     tileStyle = styles.greenTile;
   }
