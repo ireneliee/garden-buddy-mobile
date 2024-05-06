@@ -54,7 +54,7 @@ function Garden({ garden, gardenBuddy, userId, handleCloseViewGardenBuddy, addTo
         type: "success",
         text1: "Success",
         text2:
-          "Added " + 1 + "x fertiliser to the cart!",
+          "Added 1x fertiliser to the cart!",
       });
     } else {
       setFertiliserInCart(true)
@@ -105,7 +105,7 @@ function Garden({ garden, gardenBuddy, userId, handleCloseViewGardenBuddy, addTo
               idealValue={data.ideal_ph}
               idealUnit="pH"
               onAlert={() => {
-                if (data.curr_ph != data.ideal_ph) {
+                if (data.curr_ph != data.ideal_ph && data.curr_ph != null) {
                   let localFertiliserId;
                   if (data.ideal_ph < 6) {
                     localFertiliserId = 4;
