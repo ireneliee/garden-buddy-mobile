@@ -1,9 +1,23 @@
-# Garden Buddy React Native Repository
-## How to setup
-1. Download the repository to your local computer
-2. Go to the directory GardenBuddy and run `npm install`, then `npm start`. A QR code will appear in the terminal.
-3. If you would like to view how the application looks like in your mobile phone, you could install Expo Go in your mobile phone. If you're using Android, you can use the application to scan the QR code. Or if you're using iOS, you can use your camera to scan the QR code.
-4. Or if you prefer to view the application through on your laptop, you can press 'a' in the terminal to open Android simulator or 'i' in the terminal to open iOS simulator.
+# Garden Buddy
 
-## Details
-- UI Component Library: https://reactnativeelements.com
+Garden Buddy is an innovative self-cultivating garden system designed to streamline and automate the challenges typically encountered in traditional plant cultivation. Serving as both an indoor, portable greenhouse and a gardening solution, the Smart Garden enables users to easily establish their own garden, regardless of their living environment. 
+
+## garden-buddy-mobile
+
+This repository contains the code for the mobile application, enabling users to view their Garden Buddy plants in real-time.
+
+## Setup Instructions
+
+In order for you to be able to follow along the instruction below, you should have already set up the [Garden Buddy backend server](https://github.com/ireneliee/garden-buddy-backend)
+
+1. Clone this repository to your local computer
+2. Install all the required packages by running
+```
+npm install
+```
+4. To run the mobile application, use
+```
+npm start
+```
+
+5. To complete the set up of Garden Buddy system, you may visit [garden-mobile-rasp-hub](https://github.com/ireneliee/garden-mobile-rasp-hub)
