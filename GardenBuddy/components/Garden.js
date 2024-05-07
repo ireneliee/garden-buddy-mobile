@@ -25,7 +25,7 @@ function Garden({ garden, gardenBuddy, userId, handleCloseViewGardenBuddy, addTo
     const intervalId = setInterval(() => {
       console.log("Fetching data for garden ID:", garden.id);
       getData();
-    }, 30000);  // Ensure this is 60000 milliseconds
+    }, 3000); 
   
     return () => {
       console.log("Clearing interval for garden ID:", garden.id);
@@ -108,11 +108,11 @@ function Garden({ garden, gardenBuddy, userId, handleCloseViewGardenBuddy, addTo
                 if (data.curr_ph != data.ideal_ph && data.curr_ph != null) {
                   let localFertiliserId;
                   if (data.ideal_ph < 6) {
-                    localFertiliserId = 4;
+                    localFertiliserId = 6;
                   } else if (data.ideal_ph > 8) {
-                    localFertiliserId = 5;
+                    localFertiliserId = 7;
                   } else {
-                    localFertiliserId = 3;
+                    localFertiliserId = 5;
                   }
                   const quantityToAdd = 1;
                   console.log(localFertiliserId);  // Log the ID to verify correct value
