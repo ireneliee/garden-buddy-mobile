@@ -12,7 +12,7 @@ import { DataApi } from "../api/Api";
 import Toast from "react-native-toast-message";
 
 
-function Garden({ garden, gardenBuddy, userId, handleCloseViewGardenBuddy, addToCart, removeFromCart, cart, resetCart}) {
+function Garden({ garden, gardenBuddy, userId, handleCloseViewGardenBuddy, addToCart, removeFromCart, cart, resetCart }) {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
   const [fertiliserInCart, setFertiliserInCart] = useState(false);
@@ -61,7 +61,7 @@ function Garden({ garden, gardenBuddy, userId, handleCloseViewGardenBuddy, addTo
     }
   };
 
-  
+
   return (
     <>
       <View style={styles.header}>
@@ -78,11 +78,13 @@ function Garden({ garden, gardenBuddy, userId, handleCloseViewGardenBuddy, addTo
         {data && (
           <>
             <DataTile
-              name="Height"
+              name="Predicted Height"
               currentValue={data.curr_height}
               currentUnit="cm"
               idealValue={data.curr_height}
               idealUnit="cm"
+              threshold={1}
+              haveIdeal={false}
             />
             <DataTile
               name="Temperature"
@@ -90,6 +92,8 @@ function Garden({ garden, gardenBuddy, userId, handleCloseViewGardenBuddy, addTo
               currentUnit="°C"
               idealValue={data.ideal_temperature}
               idealUnit="°C"
+              threshold={3.0}
+              haveIdeal={true}
             />
             <DataTile
               name="Moisture"
@@ -97,6 +101,8 @@ function Garden({ garden, gardenBuddy, userId, handleCloseViewGardenBuddy, addTo
               currentUnit="%"
               idealValue={data.ideal_moisture}
               idealUnit="%"
+              threshold={50.0}
+              haveIdeal={true}
             />
             <DataTile
               name="PH"
@@ -104,8 +110,10 @@ function Garden({ garden, gardenBuddy, userId, handleCloseViewGardenBuddy, addTo
               currentUnit="pH"
               idealValue={data.ideal_ph}
               idealUnit="pH"
+              threshold={0.1}
+              haveIdeal={true}
               onAlert={() => {
-                if (data.curr_ph != data.ideal_ph && data.curr_ph != null) {
+                if (data.ideal_ph != data.curr_ph && data.curr_ph != null) {
                   let localFertiliserId;
                   if (data.ideal_ph < 6) {
                     localFertiliserId = 6;
@@ -118,7 +126,7 @@ function Garden({ garden, gardenBuddy, userId, handleCloseViewGardenBuddy, addTo
                   console.log(localFertiliserId);  // Log the ID to verify correct value
                   handleAddToCart(localFertiliserId, quantityToAdd);
                   setFertiliserId(localFertiliserId);
-                } else if (data.curr_ph == data.ideal_ph){
+                } else if (data.curr_ph == data.ideal_ph) {
                   // console.log(fertiliserId);  // Log the ID to verify correct value
                   // removeFromCart(fertiliserId)
                   fertiliserInCart(false)
@@ -131,24 +139,28 @@ function Garden({ garden, gardenBuddy, userId, handleCloseViewGardenBuddy, addTo
               currentUnit="SA"
               idealValue={data.ideal_salinity}
               idealUnit="SA"
+              threshold={0.1}
+              haveIdeal={true}
             />
             <DataTile
               name="Brightness"
               currentValue={data.curr_brightness}
-              currentUnit="🔅"
-              idealValue={data.curr_brightness}
-              idealUnit="🔅"
+              currentUnit="?"
+              idealValue={data.ideal_light}
+              idealUnit="?"
+              threshold={0.3}
+              haveIdeal={true}
             />
           </>
         )}
       </View>
       {fertiliserInCart && (
-          <View style={styles.messageBox}>
-            <Text style={styles.messageText}>
-              Your soil pH level is not ideal, fertiliser has been added to your cart!
-            </Text>
-          </View>
-        )}
+        <View style={styles.messageBox}>
+          <Text style={styles.messageText}>
+            Your soil pH level is not ideal, fertiliser has been added to your cart!
+          </Text>
+        </View>
+      )}
     </>
   );
 }

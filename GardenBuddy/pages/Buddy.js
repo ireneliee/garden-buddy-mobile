@@ -50,11 +50,11 @@ const Buddy = ({ addToCart, removeFromCart, cart, userId, resetCart }) => {
   };
 
   const handleRegisterBuddy = async () => {
-    if (serialId.trim() === "" || serialId.length !== 8) {
+    if (serialId.trim() === "" || serialId.length > 20) {
       Toast.show({
         type: "error",
         text1: "Error",
-        text2: "The serial ID should be only 8 characters long!",
+        text2: "The serial ID should be only 20 characters long!",
       });
       return;
     }
@@ -97,10 +97,11 @@ const Buddy = ({ addToCart, removeFromCart, cart, userId, resetCart }) => {
 
     try {
       const response = await GardenApi.createGarden(
+        
         gardenBuddies[selectedBuddy].id,
         selectedOption
       );
-
+      console.log(response);
       setSelectedBuddy(-1);
       setSelectedOption("");
       setAddGardenModalVisible(false);

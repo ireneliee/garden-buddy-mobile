@@ -1,15 +1,32 @@
 import React, { useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-const Tile = ({ name, currentValue, currentUnit, idealValue, idealUnit, onAlert }) => {
-  const tileStyle =
-    currentValue > idealValue ? styles.redTile : styles.greenTile;
+const Tile = ({
+  name,
+  currentValue,
+  currentUnit,
+  idealValue,
+  idealUnit,
+  onAlert,
+  threshold,
+  haveIdeal,
+}) => {
+  let tileStyle = null;
+  if (haveIdeal && currentValue != null && name != "PH") {
+    tileStyle =
+      currentValue < idealValue - threshold ? styles.redTile : styles.greenTile;
+  } else if (haveIdeal && currentValue != null && name == "PH") {
+    tileStyle =
+      currentValue > idealValue - threshold ? styles.redTile : styles.greenTile;
+  } else {
+    tileStyle = styles.greenTile;
+  }
 
-    useEffect(() => {
-      if (currentValue !== idealValue) {
-        onAlert && onAlert();
-      }
-    }, [currentValue, idealValue, onAlert]);
+  useEffect(() => {
+    if (currentValue !== idealValue) {
+      onAlert && onAlert();
+    }
+  }, [currentValue, idealValue, onAlert]);
 
   return (
     <View style={[styles.tile, tileStyle]}>
@@ -17,9 +34,11 @@ const Tile = ({ name, currentValue, currentUnit, idealValue, idealUnit, onAlert 
       <Text style={styles.currentValue}>
         {currentValue} {currentUnit}
       </Text>
-      <Text style={styles.idealValue}>
-        Ideal: {idealValue} {idealUnit}
-      </Text>
+      {haveIdeal && (
+        <Text style={styles.idealValue}>
+          Ideal: {idealValue} {idealUnit}
+        </Text>
+      )}
     </View>
   );
 };
