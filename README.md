@@ -15,9 +15,9 @@ In order for you to be able to follow along the instruction below, you should ha
 ```
 npm install
 ```
-4. To run the mobile application, use
+3. To run the mobile application, use
 ```
 npm start
 ```
 
-5. To complete the set up of Garden Buddy system, you may visit [garden-mobile-rasp-hub](https://github.com/ireneliee/garden-mobile-rasp-hub)
+4. To complete the set up of Garden Buddy system, you may visit [garden-mobile-rasp-hub](https://github.com/ireneliee/garden-mobile-rasp-hub)
