@@ -110,10 +110,10 @@ function Garden({ garden, gardenBuddy, userId, handleCloseViewGardenBuddy, addTo
               currentUnit="pH"
               idealValue={data.ideal_ph}
               idealUnit="pH"
-              threshold={2.0}
+              threshold={0.1}
               haveIdeal={true}
               onAlert={() => {
-                if (data.ideal_ph-1 > data.curr_ph || data.ideal_ph+1 < data.curr_ph && data.curr_ph != null) {
+                if (data.ideal_ph != data.curr_ph && data.curr_ph != null) {
                   let localFertiliserId;
                   if (data.ideal_ph < 6) {
                     localFertiliserId = 4;
